@@ -1,21 +1,21 @@
-import { ChatMessage } from "app-types/chat";
 import { Agent } from "app-types/agent";
-import { UserPreferences } from "app-types/user";
+import { ChatMessage } from "app-types/chat";
 import { MCPServerConfig } from "app-types/mcp";
+import { UserPreferences } from "app-types/user";
+import { DBEdge, DBNode, DBWorkflow } from "app-types/workflow";
 import { sql } from "drizzle-orm";
+import { isNotNull } from "drizzle-orm";
 import {
+  boolean,
+  index,
+  json,
   pgTable,
   text,
   timestamp,
-  json,
-  uuid,
-  boolean,
   unique,
+  uuid,
   varchar,
-  index,
 } from "drizzle-orm/pg-core";
-import { isNotNull } from "drizzle-orm";
-import { DBWorkflow, DBEdge, DBNode } from "app-types/workflow";
 
 export const ChatThreadSchema = pgTable("chat_thread", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),

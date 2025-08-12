@@ -1,44 +1,44 @@
 "use client";
 
-import {
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenu,
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
-  DropdownMenuPortal,
-  DropdownMenuSubContent,
-  DropdownMenuCheckboxItem,
-} from "ui/dropdown-menu";
-import { AvatarFallback, AvatarImage, Avatar } from "ui/avatar";
-import { SidebarMenuButton, SidebarMenuItem, SidebarMenu } from "ui/sidebar";
-import {
-  ChevronsUpDown,
-  Command,
-  LogOutIcon,
-  Settings2,
-  Palette,
-  Languages,
-  Sun,
-  MoonStar,
-  ChevronRight,
-} from "lucide-react";
-import { useTheme } from "next-themes";
 import { appStore } from "@/app/store";
+import { useThemeStyle } from "@/hooks/use-theme-style";
+import { getLocaleAction } from "@/i18n/get-locale";
+import { authClient } from "auth/client";
+import { Session, User } from "better-auth";
 import { BASE_THEMES, COOKIE_KEY_LOCALE, SUPPORTED_LOCALES } from "lib/const";
 import { capitalizeFirstLetter, cn } from "lib/utils";
-import { authClient } from "auth/client";
+import {
+  ChevronRight,
+  ChevronsUpDown,
+  Command,
+  Languages,
+  LogOutIcon,
+  MoonStar,
+  Palette,
+  Settings2,
+  Sun,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
-import useSWR from "swr";
-import { getLocaleAction } from "@/i18n/get-locale";
+import { useTheme } from "next-themes";
 import { useCallback } from "react";
-import { GithubIcon } from "ui/github-icon";
+import useSWR from "swr";
+import { Avatar, AvatarFallback, AvatarImage } from "ui/avatar";
 import { DiscordIcon } from "ui/discord-icon";
-import { useThemeStyle } from "@/hooks/use-theme-style";
-import { Session, User } from "better-auth";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "ui/dropdown-menu";
+import { GithubIcon } from "ui/github-icon";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "ui/sidebar";
 
 export function AppSidebarUser({
   session,

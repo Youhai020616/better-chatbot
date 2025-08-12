@@ -4,7 +4,7 @@ import { appStore } from "@/app/store";
 import { useChatModels } from "@/hooks/queries/use-chat-models";
 import { ChatModel } from "app-types/chat";
 import { CheckIcon, ChevronDown } from "lucide-react";
-import { Fragment, memo, PropsWithChildren, useEffect, useState } from "react";
+import { Fragment, PropsWithChildren, memo, useEffect, useState } from "react";
 import { Button } from "ui/button";
 import { ClaudeIcon } from "ui/claude-icon";
 

@@ -1,0 +1,6 @@
+[ ] NAME:Current Task List DESCRIPTION:Root task for conversation edf0fbfd-6e28-49fa-b1b8-c8beeb154970
+-[x] NAME:Research OpenRouter API models DESCRIPTION:Search for and identify all available models that can be called using the OpenRouter API key. Document model names, capabilities, and usage requirements.
+-[x] NAME:Update model configuration DESCRIPTION:Replace all current model references in the codebase with OpenRouter API-compatible models. Update configuration files and modify hardcoded model references.
+-[x] NAME:Test OpenRouter integration DESCRIPTION:Create and run tests to verify that the OpenRouter API key can successfully call the configured models. Validate API authentication, model responses, and error handling.
+-[x] NAME:Code quality with Biome DESCRIPTION:Use Biome to debug and improve code quality. Run Biome to identify formatting and linting issues, fix problems, and ensure consistent formatting standards.
+-[x] NAME:Documentation and cleanup DESCRIPTION:Document any workarounds or special configurations needed. Clean up any temporary test files and ensure the codebase is ready for production use.

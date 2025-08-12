@@ -1,6 +1,6 @@
 "use client";
 
-import { useScroll, useTransform, motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 
 interface TimelineProps {

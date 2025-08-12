@@ -1,11 +1,11 @@
-import { SidebarProvider } from "ui/sidebar";
-import { AppSidebar } from "@/components/layouts/app-sidebar";
 import { AppHeader } from "@/components/layouts/app-header";
+import { AppSidebar } from "@/components/layouts/app-sidebar";
 import { cookies, headers as getHeaders } from "next/headers";
+import { SidebarProvider } from "ui/sidebar";
 
+import { AppPopupProvider } from "@/components/layouts/app-popup-provider";
 import { auth } from "auth/server";
 import { COOKIE_KEY_SIDEBAR_STATE } from "lib/const";
-import { AppPopupProvider } from "@/components/layouts/app-popup-provider";
 import { SWRConfigProvider } from "./swr-config";
 
 export const experimental_ppr = true;

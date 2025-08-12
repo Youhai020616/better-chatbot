@@ -6,7 +6,6 @@
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/cgoinglove/better-chatbot&env=BETTER_AUTH_SECRET&env=OPENAI_API_KEY&env=GOOGLE_GENERATIVE_AI_API_KEY&env=ANTHROPIC_API_KEY&envDescription=BETTER_AUTH_SECRET+is+required+(enter+any+secret+value).+At+least+one+LLM+provider+API+key+(OpenAI,+Claude,+or+Google)+is+required,+but+you+can+add+all+of+them.+See+the+link+below+for+details.&envLink=https://github.com/cgoinglove/better-chatbot/blob/main/.env.example&demo-title=better-chatbot&demo-description=An+Open-Source+Chatbot+Template+Built+With+Next.js+and+the+AI+SDK+by+Vercel.&products=[{"type":"integration","protocol":"storage","productSlug":"neon","integrationSlug":"neon"},{"type":"integration","protocol":"storage","productSlug":"upstash-kv","integrationSlug":"upstash"}])
 
-
 See the experience in action in the [preview](#preview) below!
 
 > Built with [Vercel AI SDK](https://sdk.vercel.ai) and [Next.js](https://nextjs.org/), this app adopts modern patterns for building AI chat interfaces. It leverages the power of the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) to seamlessly integrate external tools into your chat experience. You can also create custom workflows that become callable tools in chat, allowing you to chain multiple MCP tools, LLM interactions, and logic into powerful automated sequences.
@@ -27,17 +26,22 @@ npm install -g pnpm
 
 pnpm i
 
-# 4. (Optional) Start a local PostgreSQL instance
+# 4. Set up Supabase Database
 
-pnpm docker:pg
-
-# If you already have your own PostgreSQL running, you can skip this step.
-# In that case, make sure to update the PostgreSQL URL in your .env file.
+# Create a Supabase project at https://supabase.com
+# Get your database connection string from Supabase Dashboard -> Settings -> Database
+# Update the POSTGRES_URL in your .env file with your Supabase connection string
 
 # 5. Enter required information in the .env file
 
 # The .env file is created automatically. Just fill in the required values.
-# For the fastest setup, provide at least one LLM provider's API key (e.g., OPENAI_API_KEY, CLAUDE_API_KEY, GEMINI_API_KEY, etc.) and the PostgreSQL URL you want to use.
+# For the fastest setup, provide at least one LLM provider's API key:
+# - OPENAI_API_KEY (OpenAI models)
+# - ANTHROPIC_API_KEY (Claude models)
+# - GOOGLE_GENERATIVE_AI_API_KEY (Gemini models)
+# - OPENROUTER_API_KEY (300+ models from multiple providers - recommended!)
+# - XAI_API_KEY (Grok models)
+# And your Supabase database connection string.
 
 # 6. Start the server
 
@@ -68,15 +72,15 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to get start
   - [Quick Start (Local Version) 🚀](#quick-start-local-version-)
   - [Environment Variables](#environment-variables)
 - [📘 Guides](#-guides)
-    - [🔌 MCP Server Setup \& Tool Testing](#-mcp-server-setup--tool-testing)
-    - [🐳 Docker Hosting Guide](#-docker-hosting-guide)
-    - [▲ Vercel Hosting Guide](#-vercel-hosting-guide)
-    - [🎯 System Prompts \& Chat Customization](#-system-prompts--chat-customization)
-    - [🔐 OAuth Sign-In Setup](#-oauth-sign-in-setup)
-    - [🕵🏿 Adding openAI like providers](#-adding-openai-like-providers)
+  - [🔌 MCP Server Setup \& Tool Testing](#-mcp-server-setup--tool-testing)
+  - [🐳 Docker Hosting Guide](#-docker-hosting-guide)
+  - [▲ Vercel Hosting Guide](#-vercel-hosting-guide)
+  - [🎯 System Prompts \& Chat Customization](#-system-prompts--chat-customization)
+  - [🔐 OAuth Sign-In Setup](#-oauth-sign-in-setup)
+  - [🕵🏿 Adding openAI like providers](#-adding-openai-like-providers)
 - [💡 Tips](#-tips)
-    - [🧠 Agentic Chatbot with Project Instructions](#-agentic-chatbot-with-project-instructions)
-    - [💬 Temporary Chat Windows](#-temporary-chat-windows)
+  - [🧠 Agentic Chatbot with Project Instructions](#-agentic-chatbot-with-project-instructions)
+  - [💬 Temporary Chat Windows](#-temporary-chat-windows)
 - [🗺️ Roadmap](#️-roadmap)
 - [🙌 Contributing](#-contributing)
 - [💬 Join Our Discord](#-join-our-discord)
@@ -183,6 +187,7 @@ It is a simple JS execution tool.
 #### 📊 Data Visualization Tools
 
 **Interactive Tables**: Create feature-rich data tables with advanced functionality:
+
 - **Sorting & Filtering**: Sort by any column, filter data in real-time
 - **Search & Highlighting**: Global search with automatic text highlighting
 - **Export Options**: Export to CSV or Excel format with lazy-loaded libraries
@@ -230,10 +235,9 @@ pnpm docker-compose:up
 ```bash
 pnpm i
 
-#(Optional) Start a local PostgreSQL instance
-# If you already have your own PostgreSQL running, you can skip this step.
-# In that case, make sure to update the PostgreSQL URL in your .env file.
-pnpm docker:pg
+# Set up Supabase Database
+# Create a Supabase project and get your database connection string
+# Update the POSTGRES_URL in your .env file
 
 # Enter required information in the .env file
 # The .env file is created automatically. Just fill in the required values.
@@ -273,8 +277,8 @@ BETTER_AUTH_SECRET=****
 BETTER_AUTH_URL=
 
 # === Database ===
-# If you don't have PostgreSQL running locally, start it with: pnpm docker:pg
-POSTGRES_URL=postgres://your_username:your_password@localhost:5432/your_database_name
+# Supabase PostgreSQL database connection
+POSTGRES_URL=postgresql://postgres:[YOUR_PASSWORD]@db.[YOUR_PROJECT_REF].supabase.co:5432/postgres
 
 # (Optional)
 # === Tools ===

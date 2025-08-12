@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  Lock,
-  Eye,
-  Globe,
   Bookmark,
   BookmarkCheck,
+  Eye,
+  Globe,
+  Lock,
   Trash2,
 } from "lucide-react";
 import { useTranslations } from "next-intl";

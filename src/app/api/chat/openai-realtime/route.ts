@@ -1,25 +1,25 @@
-import { NextRequest } from "next/server";
-import { getSession } from "auth/server";
 import { AllowedMCPServer, VercelAIMcpTool } from "app-types/mcp";
-import { userRepository } from "lib/db/repository";
-import {
-  filterMcpServerCustomizations,
-  filterMCPToolsByAllowedMCPServers,
-  mergeSystemPrompt,
-} from "../shared.chat";
+import { getSession } from "auth/server";
+import { colorize } from "consola/utils";
+import { mcpClientsManager } from "lib/ai/mcp/mcp-manager";
 import {
   buildMcpServerCustomizationsSystemPrompt,
   buildSpeechSystemPrompt,
 } from "lib/ai/prompts";
-import { mcpClientsManager } from "lib/ai/mcp/mcp-manager";
-import { safe } from "ts-safe";
 import { DEFAULT_VOICE_TOOLS } from "lib/ai/speech";
+import { userRepository } from "lib/db/repository";
+import globalLogger from "lib/logger";
+import { NextRequest } from "next/server";
+import { safe } from "ts-safe";
 import {
   rememberAgentAction,
   rememberMcpServerCustomizationsAction,
 } from "../actions";
-import globalLogger from "lib/logger";
-import { colorize } from "consola/utils";
+import {
+  filterMCPToolsByAllowedMCPServers,
+  filterMcpServerCustomizations,
+  mergeSystemPrompt,
+} from "../shared.chat";
 
 const logger = globalLogger.withDefaults({
   message: colorize("blackBright", `OpenAI Realtime API: `),

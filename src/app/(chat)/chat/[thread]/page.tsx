@@ -3,7 +3,7 @@ import ChatBot from "@/components/chat-bot";
 
 import { ChatMessage, ChatThread } from "app-types/chat";
 import { convertToUIMessage } from "lib/utils";
-import { redirect, RedirectType } from "next/navigation";
+import { RedirectType, redirect } from "next/navigation";
 
 const fetchThread = async (
   threadId: string,

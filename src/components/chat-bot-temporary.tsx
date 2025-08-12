@@ -1,7 +1,7 @@
 "use client";
 
 import { appStore } from "@/app/store";
-import { useChat, UseChatHelpers } from "@ai-sdk/react";
+import { UseChatHelpers, useChat } from "@ai-sdk/react";
 import { cn } from "lib/utils";
 
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
@@ -14,13 +14,10 @@ import {
   DrawerTitle,
 } from "ui/drawer";
 
-import PromptInput from "./prompt-input";
-import { ErrorMessage, PreviewMessage } from "./message";
-import { Settings2, X } from "lucide-react";
-import { Separator } from "ui/separator";
+import { DialogTitle } from "@radix-ui/react-dialog";
 import { UIMessage } from "ai";
-import { useShallow } from "zustand/shallow";
-import { isShortcutEvent, Shortcuts } from "lib/keyboard-shortcuts";
+import { Shortcuts, isShortcutEvent } from "lib/keyboard-shortcuts";
+import { Settings2, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import {
   Dialog,
@@ -30,9 +27,12 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "ui/dialog";
-import { DialogTitle } from "@radix-ui/react-dialog";
+import { Separator } from "ui/separator";
 import { Textarea } from "ui/textarea";
 import { Think } from "ui/think";
+import { useShallow } from "zustand/shallow";
+import { ErrorMessage, PreviewMessage } from "./message";
+import PromptInput from "./prompt-input";
 
 export function ChatBotTemporary() {
   const t = useTranslations("Chat.TemporaryChat");

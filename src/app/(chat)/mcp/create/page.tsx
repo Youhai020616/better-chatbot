@@ -1,7 +1,7 @@
 import MCPEditor from "@/components/mcp-editor";
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 
 export default async function Page() {
   const t = await getTranslations();

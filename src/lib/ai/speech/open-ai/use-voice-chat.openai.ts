@@ -1,24 +1,24 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { TextPart } from "ai";
+import { generateUUID } from "lib/utils";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   DEFAULT_VOICE_TOOLS,
   UIMessageWithCompleted,
   VoiceChatSession,
 } from "..";
-import { generateUUID } from "lib/utils";
-import { TextPart } from "ai";
 import {
   OpenAIRealtimeServerEvent,
   OpenAIRealtimeSession,
 } from "./openai-realtime-event";
 
-import { ToolInvocationUIPart } from "app-types/chat";
-import { appStore } from "@/app/store";
-import { useShallow } from "zustand/shallow";
-import { useTheme } from "next-themes";
-import { extractMCPToolId } from "lib/ai/mcp/mcp-tool-id";
 import { callMcpToolByServerNameAction } from "@/app/api/mcp/actions";
+import { appStore } from "@/app/store";
+import { ToolInvocationUIPart } from "app-types/chat";
+import { extractMCPToolId } from "lib/ai/mcp/mcp-tool-id";
+import { useTheme } from "next-themes";
+import { useShallow } from "zustand/shallow";
 
 export const OPENAI_VOICE = {
   Alloy: "alloy",

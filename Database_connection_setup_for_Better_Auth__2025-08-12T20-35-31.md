@@ -1,0 +1,12 @@
+[ ] NAME:Current Task List DESCRIPTION:Root task for conversation edf0fbfd-6e28-49fa-b1b8-c8beeb154970
+-[x] NAME:Research OpenRouter API models DESCRIPTION:Search for and identify all available models that can be called using the OpenRouter API key. Document model names, capabilities, and usage requirements.
+-[x] NAME:Update model configuration DESCRIPTION:Replace all current model references in the codebase with OpenRouter API-compatible models. Update configuration files and modify hardcoded model references.
+-[x] NAME:Test OpenRouter integration DESCRIPTION:Create and run tests to verify that the OpenRouter API key can successfully call the configured models. Validate API authentication, model responses, and error handling.
+-[x] NAME:Code quality with Biome DESCRIPTION:Use Biome to debug and improve code quality. Run Biome to identify formatting and linting issues, fix problems, and ensure consistent formatting standards.
+-[x] NAME:Documentation and cleanup DESCRIPTION:Document any workarounds or special configurations needed. Clean up any temporary test files and ensure the codebase is ready for production use.
+-[x] NAME:配置 Supabase 数据库 DESCRIPTION:获取 better_chat 项目的数据库密码，更新 .env 文件中的 POSTGRES_URL，运行数据库迁移
+-[/] NAME:准备生产环境配置 DESCRIPTION:设置生产环境变量，包括 BETTER_AUTH_URL、API 密钥等
+-[ ] NAME:选择部署平台 DESCRIPTION:从 Vercel、Netlify、Railway 等平台中选择一个进行部署
+-[ ] NAME:部署前端应用 DESCRIPTION:连接 GitHub 仓库到选择的平台，配置构建设置，完成首次部署
+-[ ] NAME:配置自定义域名（可选） DESCRIPTION:如果需要自定义域名，购买域名并配置 DNS 记录
+-[ ] NAME:测试完整功能 DESCRIPTION:测试用户注册、登录、聊天功能等，确保所有功能正常工作

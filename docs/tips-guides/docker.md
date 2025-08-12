@@ -10,7 +10,7 @@ Docker provides a streamlined and efficient method for managing containerized ap
 
 ## Steps
 
-1.  **Clone the Repository:**
+1. **Clone the Repository:**
     Navigate to the desired directory in your terminal and clone the project repository. If you're not already in the project directory after cloning, change into it:
 
     ```sh
@@ -18,19 +18,17 @@ Docker provides a streamlined and efficient method for managing containerized ap
     cd better-chatbot
     ```
 
-2.  **Set up Environment Variables:**
+2. **Set up Environment Variables:**
     Run `pnpm initial:env` to generate the `.env` file.  
     Then, enter the API keys only for the LLM providers you plan to use.
 
     You can generate an authentication secret (`BETTER_AUTH_SECRET`) with the command:  
     `pnpx auth secret`
 
-    For the database, Docker will handle all necessary configuration automatically,  
-    so the default `docker/.env` file is sufficient.
+    For the database, update the POSTGRES_URL with your Supabase connection string
+    in the `docker/.env` file.
 
-
-
-1.  **Build and Start the Container:**
+1. **Build and Start the Container:**
     From the project's root directory, build the Docker image and start the container in detached mode (running in the background):
 
     ```sh
@@ -39,24 +37,25 @@ Docker provides a streamlined and efficient method for managing containerized ap
 
     Your application should now be running. You can access it by visiting `http://<ipofserver>:3000/` in your web browser. Replace `<ipofserver>` with the IP address of the server where Docker is running (this will likely be `localhost` if you're running it on your local machine).
 
-## Using your own database
+## Using Supabase Database
 
-If you don't want to host your own db, here are some steps
+This project is now configured to use Supabase as the database. Here are the steps:
 
-1. Open up your docker compose file. `docker/compose.yml`
-   Comment out the postgres section and the volume
-2. Update `.env` change your DB url
-3. Migrate the DB
+1. Create a Supabase project at [https://supabase.com](https://supabase.com)
+2. Get your database connection string from Supabase Dashboard → Settings → Database
+3. Update `docker/.env` with your Supabase connection string:
 
-```sh
-pnpm db:migrate
-```
+   ```
+   POSTGRES_URL=postgresql://postgres:[YOUR_PASSWORD]@db.[YOUR_PROJECT_REF].supabase.co:5432/postgres
+   ```
 
-4. Run the app
+4. The database tables will be created automatically when the app starts
 
-```sh
-pnpm docker-compose:up
-```
+5. Run the app:
+
+   ```sh
+   pnpm docker-compose:up
+   ```
 
 ## What is possible in docker and what is not
 

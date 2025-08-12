@@ -1,5 +1,8 @@
 "use client";
 
+import { appStore } from "@/app/store";
+import { UseChatHelpers } from "@ai-sdk/react";
+import { ChatMention, ChatModel } from "app-types/chat";
 import {
   AudioWaveformIcon,
   ChevronDown,
@@ -9,35 +12,32 @@ import {
   Square,
   XIcon,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { Button } from "ui/button";
 import { notImplementedToast } from "ui/shared-toast";
-import { UseChatHelpers } from "@ai-sdk/react";
-import { SelectModel } from "./select-model";
-import { appStore } from "@/app/store";
 import { useShallow } from "zustand/shallow";
-import { ChatMention, ChatModel } from "app-types/chat";
-import dynamic from "next/dynamic";
+import { SelectModel } from "./select-model";
 import { ToolModeDropdown } from "./tool-mode-dropdown";
 
-import { ToolSelectDropdown } from "./tool-select-dropdown";
-import { Tooltip, TooltipContent, TooltipTrigger } from "ui/tooltip";
-import { useTranslations } from "next-intl";
 import { Editor } from "@tiptap/react";
+import { AgentSummary } from "app-types/agent";
 import { WorkflowSummary } from "app-types/workflow";
-import { Avatar, AvatarFallback, AvatarImage } from "ui/avatar";
-import equal from "lib/equal";
-import { MCPIcon } from "ui/mcp-icon";
 import { DefaultToolName } from "lib/ai/tools";
-import { DefaultToolIcon } from "./default-tool-icon";
-import { OpenAIIcon } from "ui/openai-icon";
-import { GrokIcon } from "ui/grok-icon";
+import { EMOJI_DATA } from "lib/const";
+import equal from "lib/equal";
+import { getShortcutKeyList, isShortcutEvent } from "lib/keyboard-shortcuts";
+import { cn } from "lib/utils";
+import { useTranslations } from "next-intl";
+import { Avatar, AvatarFallback, AvatarImage } from "ui/avatar";
 import { ClaudeIcon } from "ui/claude-icon";
 import { GeminiIcon } from "ui/gemini-icon";
-import { cn } from "lib/utils";
-import { getShortcutKeyList, isShortcutEvent } from "lib/keyboard-shortcuts";
-import { AgentSummary } from "app-types/agent";
-import { EMOJI_DATA } from "lib/const";
+import { GrokIcon } from "ui/grok-icon";
+import { MCPIcon } from "ui/mcp-icon";
+import { OpenAIIcon } from "ui/openai-icon";
+import { Tooltip, TooltipContent, TooltipTrigger } from "ui/tooltip";
+import { DefaultToolIcon } from "./default-tool-icon";
+import { ToolSelectDropdown } from "./tool-select-dropdown";
 
 interface PromptInputProps {
   placeholder?: string;

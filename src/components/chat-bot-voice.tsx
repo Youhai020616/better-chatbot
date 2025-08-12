@@ -10,17 +10,17 @@ import {
 import { cn } from "lib/utils";
 import {
   CheckIcon,
+  ChevronRight,
   Loader,
+  MessageSquareMoreIcon,
+  MessagesSquareIcon,
   MicIcon,
   MicOffIcon,
   PhoneIcon,
   Settings2Icon,
   TriangleAlertIcon,
-  XIcon,
-  MessagesSquareIcon,
-  MessageSquareMoreIcon,
   WrenchIcon,
-  ChevronRight,
+  XIcon,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -46,14 +46,14 @@ import { OpenAIIcon } from "ui/openai-icon";
 import { Tooltip, TooltipContent, TooltipTrigger } from "ui/tooltip";
 import { ToolMessagePart } from "./message-parts";
 
-import { EnabledMcpToolsDropdown } from "./enabled-mcp-tools-dropdown";
-import { ToolInvocationUIPart } from "app-types/chat";
 import { appStore } from "@/app/store";
-import { useShallow } from "zustand/shallow";
+import { ToolInvocationUIPart } from "app-types/chat";
+import { Shortcuts, isShortcutEvent } from "lib/keyboard-shortcuts";
 import { useTranslations } from "next-intl";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "ui/dialog";
 import JsonView from "ui/json-view";
-import { isShortcutEvent, Shortcuts } from "lib/keyboard-shortcuts";
+import { useShallow } from "zustand/shallow";
+import { EnabledMcpToolsDropdown } from "./enabled-mcp-tools-dropdown";
 
 const prependTools = [
   {

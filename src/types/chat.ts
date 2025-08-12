@@ -1,4 +1,4 @@
-import type { UIMessage, Message } from "ai";
+import type { Message, UIMessage } from "ai";
 import { z } from "zod";
 import { AllowedMCPServerZodSchema } from "./mcp";
 import { UserPreferences } from "./user";

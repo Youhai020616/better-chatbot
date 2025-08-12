@@ -1,53 +1,53 @@
 import {
+  Message,
+  type UIMessage,
+  appendClientMessage,
   appendResponseMessages,
   createDataStreamResponse,
+  formatDataStreamPart,
   smoothStream,
   streamText,
-  type UIMessage,
-  formatDataStreamPart,
-  appendClientMessage,
-  Message,
 } from "ai";
 
 import { customModelProvider, isToolCallUnsupportedModel } from "lib/ai/models";
 
 import { mcpClientsManager } from "lib/ai/mcp/mcp-manager";
 
-import { agentRepository, chatRepository } from "lib/db/repository";
-import globalLogger from "logger";
+import { chatApiSchemaRequestBodySchema } from "app-types/chat";
 import {
   buildMcpServerCustomizationsSystemPrompt,
-  buildUserSystemPrompt,
-  buildToolCallUnsupportedModelSystemPrompt,
   buildThinkingSystemPrompt,
+  buildToolCallUnsupportedModelSystemPrompt,
+  buildUserSystemPrompt,
 } from "lib/ai/prompts";
-import { chatApiSchemaRequestBodySchema } from "app-types/chat";
+import { agentRepository, chatRepository } from "lib/db/repository";
+import globalLogger from "logger";
 
 import { errorIf, safe } from "ts-safe";
 
-import {
-  appendAnnotations,
-  excludeToolExecution,
-  handleError,
-  manualToolExecuteByLastMessage,
-  mergeSystemPrompt,
-  convertToMessage,
-  extractInProgressToolPart,
-  assignToolResult,
-  filterMcpServerCustomizations,
-  loadMcpTools,
-  loadWorkFlowTools,
-  loadAppDefaultTools,
-} from "./shared.chat";
+import { isVercelAIWorkflowTool } from "app-types/workflow";
+import { getSession } from "auth/server";
+import { colorize } from "consola/utils";
+import { SequentialThinkingToolName } from "lib/ai/tools";
+import { sequentialThinkingTool } from "lib/ai/tools/thinking/sequential-thinking";
 import {
   rememberAgentAction,
   rememberMcpServerCustomizationsAction,
 } from "./actions";
-import { getSession } from "auth/server";
-import { colorize } from "consola/utils";
-import { isVercelAIWorkflowTool } from "app-types/workflow";
-import { SequentialThinkingToolName } from "lib/ai/tools";
-import { sequentialThinkingTool } from "lib/ai/tools/thinking/sequential-thinking";
+import {
+  appendAnnotations,
+  assignToolResult,
+  convertToMessage,
+  excludeToolExecution,
+  extractInProgressToolPart,
+  filterMcpServerCustomizations,
+  handleError,
+  loadAppDefaultTools,
+  loadMcpTools,
+  loadWorkFlowTools,
+  manualToolExecuteByLastMessage,
+  mergeSystemPrompt,
+} from "./shared.chat";
 
 const logger = globalLogger.withDefaults({
   message: colorize("blackBright", `Chat API: `),

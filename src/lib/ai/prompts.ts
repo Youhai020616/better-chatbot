@@ -1,11 +1,11 @@
-import { McpServerCustomizationsPrompt, MCPToolInfo } from "app-types/mcp";
+import { MCPToolInfo, McpServerCustomizationsPrompt } from "app-types/mcp";
 
+import { Agent } from "app-types/agent";
 import { UserPreferences } from "app-types/user";
 import { User } from "better-auth";
-import { createMCPToolId } from "./mcp/mcp-tool-id";
 import { format } from "date-fns";
+import { createMCPToolId } from "./mcp/mcp-tool-id";
 import { SequentialThinkingToolName } from "./tools";
-import { Agent } from "app-types/agent";
 
 export const CREATE_THREAD_TITLE_PROMPT = `
 You are a chat title generation expert.

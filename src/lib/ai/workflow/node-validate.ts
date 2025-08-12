@@ -2,20 +2,20 @@ import { Edge } from "@xyflow/react";
 import { JSONSchema7 } from "json-schema";
 import {
   ConditionNodeData,
-  OutputNodeData,
+  HttpNodeData,
+  InputNodeData,
   LLMNodeData,
   NodeKind,
-  InputNodeData,
+  OutputNodeData,
+  TemplateNodeData,
+  ToolNodeData,
   UINode,
   WorkflowNodeData,
-  ToolNodeData,
-  HttpNodeData,
-  TemplateNodeData,
 } from "lib/ai/workflow/workflow.interface";
 import { cleanVariableName } from "lib/utils";
 import { safe } from "ts-safe";
-import { findJsonSchemaByPath } from "./shared.workflow";
 import { ConditionBranch } from "./condition";
+import { findJsonSchemaByPath } from "./shared.workflow";
 
 export function validateSchema(key: string, schema: JSONSchema7) {
   const variableName = cleanVariableName(key);

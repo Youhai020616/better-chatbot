@@ -3,14 +3,14 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { pgDb } from "lib/db/pg/db.pg";
-import { headers } from "next/headers";
-import { toast } from "sonner";
 import {
   AccountSchema,
   SessionSchema,
   UserSchema,
   VerificationSchema,
 } from "lib/db/pg/schema.pg";
+import { headers } from "next/headers";
+import { toast } from "sonner";
 import { getAuthConfig } from "./config";
 
 import logger from "logger";

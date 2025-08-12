@@ -1,7 +1,7 @@
 import { User, UserPreferences, UserRepository } from "app-types/user";
+import { eq } from "drizzle-orm";
 import { pgDb as db } from "../db.pg";
 import { UserSchema } from "../schema.pg";
-import { eq } from "drizzle-orm";
 
 export const pgUserRepository: UserRepository = {
   existsByEmail: async (email: string): Promise<boolean> => {

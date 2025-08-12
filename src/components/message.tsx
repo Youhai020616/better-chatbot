@@ -1,22 +1,22 @@
 "use client";
 
 import type { UIMessage } from "ai";
-import { memo, useMemo, useState } from "react";
 import equal from "lib/equal";
+import { memo, useMemo, useState } from "react";
 
-import { cn, truncateString } from "lib/utils";
 import type { UseChatHelpers } from "@ai-sdk/react";
-import { Alert, AlertDescription, AlertTitle } from "ui/alert";
-import {
-  UserMessagePart,
-  AssistMessagePart,
-  ToolMessagePart,
-  ReasoningPart,
-} from "./message-parts";
-import { ChevronDown, ChevronUp, TriangleAlertIcon } from "lucide-react";
-import { Button } from "ui/button";
-import { useTranslations } from "next-intl";
 import { ChatMessageAnnotation, ClientToolInvocation } from "app-types/chat";
+import { cn, truncateString } from "lib/utils";
+import { ChevronDown, ChevronUp, TriangleAlertIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Alert, AlertDescription, AlertTitle } from "ui/alert";
+import { Button } from "ui/button";
+import {
+  AssistMessagePart,
+  ReasoningPart,
+  ToolMessagePart,
+  UserMessagePart,
+} from "./message-parts";
 
 interface Props {
   message: UIMessage;

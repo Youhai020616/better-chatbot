@@ -4,17 +4,17 @@ import { ToolInvocationUIPart } from "app-types/chat";
 
 import { cn, toAny } from "lib/utils";
 
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import {
   CheckIcon,
   ChevronDownIcon,
   CircleIcon,
   Loader2Icon,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 
-import { TextShimmer } from "ui/text-shimmer";
 import { ThoughtData } from "lib/ai/tools/thinking/sequential-thinking";
+import { TextShimmer } from "ui/text-shimmer";
 import { WordByWordFadeIn } from "../markdown";
 
 interface SequentialThinkingToolInvocationProps {

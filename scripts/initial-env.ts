@@ -6,13 +6,11 @@ const ROOT = process.cwd();
 
 const DOCKER_ENV_PATH = path.join(ROOT, "docker");
 
-// PostgreSQL settings for Docker environment
+// Supabase PostgreSQL settings for Docker environment
 const DOCKER_POSTGRES_SETTINGS = [
-  "# == DOCKER POSTGRES SETTINGS ==",
-  "POSTGRES_URL=postgres://your_username:your_password@postgres:5432/better_chatbot",
-  "POSTGRES_DB=better_chatbot",
-  "POSTGRES_USER=your_username",
-  "POSTGRES_PASSWORD=your_password",
+  "# == SUPABASE DATABASE SETTINGS ==",
+  "# Replace with your actual Supabase connection string",
+  "POSTGRES_URL=postgresql://postgres:[YOUR_PASSWORD]@db.[YOUR_PROJECT_REF].supabase.co:5432/postgres",
 ].join("\n");
 
 /**

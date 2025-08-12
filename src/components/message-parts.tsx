@@ -1,62 +1,62 @@
 "use client";
 
+import { useCopy } from "@/hooks/use-copy";
+import type { UseChatHelpers } from "@ai-sdk/react";
 import { UIMessage } from "ai";
+import { cn, createThrottle, safeJSONParse, truncateString } from "lib/utils";
 import {
   Check,
+  ChevronDownIcon,
+  ChevronRight,
+  ChevronUp,
   Copy,
+  HammerIcon,
   Loader,
   Pencil,
-  ChevronDownIcon,
-  ChevronUp,
   RefreshCw,
-  X,
   Trash2,
-  ChevronRight,
   TriangleAlert,
-  HammerIcon,
+  X,
 } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "ui/tooltip";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "ui/button";
-import { Markdown } from "./markdown";
-import { cn, createThrottle, safeJSONParse, truncateString } from "lib/utils";
 import JsonView from "ui/json-view";
-import { useMemo, useState, memo, useEffect, useRef, useCallback } from "react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "ui/tooltip";
+import { Markdown } from "./markdown";
 import { MessageEditor } from "./message-editor";
-import type { UseChatHelpers } from "@ai-sdk/react";
-import { useCopy } from "@/hooks/use-copy";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { SelectModel } from "./select-model";
 import {
   deleteMessageAction,
   deleteMessagesByChatIdAfterTimestampAction,
 } from "@/app/api/chat/actions";
+import { AnimatePresence, motion } from "framer-motion";
+import { SelectModel } from "./select-model";
 
-import { toast } from "sonner";
-import { safe } from "ts-safe";
 import {
   ChatModel,
   ClientToolInvocation,
   ToolInvocationUIPart,
 } from "app-types/chat";
+import { toast } from "sonner";
+import { safe } from "ts-safe";
 
-import { useTranslations } from "next-intl";
 import { extractMCPToolId } from "lib/ai/mcp/mcp-tool-id";
+import { useTranslations } from "next-intl";
 import { Separator } from "ui/separator";
 
-import { TextShimmer } from "ui/text-shimmer";
-import equal from "lib/equal";
 import { isVercelAIWorkflowTool } from "app-types/workflow";
-import { Avatar, AvatarFallback, AvatarImage } from "ui/avatar";
 import { DefaultToolName, SequentialThinkingToolName } from "lib/ai/tools";
+import equal from "lib/equal";
 import {
   Shortcut,
   getShortcutKeyList,
   isShortcutEvent,
 } from "lib/keyboard-shortcuts";
+import { Avatar, AvatarFallback, AvatarImage } from "ui/avatar";
+import { TextShimmer } from "ui/text-shimmer";
 
-import { WorkflowInvocation } from "./tool-invocation/workflow-invocation";
 import dynamic from "next/dynamic";
+import { WorkflowInvocation } from "./tool-invocation/workflow-invocation";
 
 type MessagePart = UIMessage["parts"][number];
 type TextMessagePart = Extract<MessagePart, { type: "text" }>;

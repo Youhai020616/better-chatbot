@@ -1,10 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { existsByEmailAction } from "@/app/api/auth/actions";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -12,16 +9,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useObjectState } from "@/hooks/use-object-state";
+import { UserZodSchema } from "app-types/user";
+import { authClient } from "auth/client";
 import { cn } from "lib/utils";
 import { ChevronLeft, Loader } from "lucide-react";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 import { safe } from "ts-safe";
-import { UserZodSchema } from "app-types/user";
-import { existsByEmailAction } from "@/app/api/auth/actions";
-import { authClient } from "auth/client";
-import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
 
 export default function SignUpPage() {
   const t = useTranslations();
