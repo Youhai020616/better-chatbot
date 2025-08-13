@@ -12,6 +12,7 @@ import {
 import { headers } from "next/headers";
 import { toast } from "sonner";
 import { getAuthConfig } from "./config";
+import { BASE_URL } from "lib/const";
 
 import logger from "logger";
 import { redirect } from "next/navigation";
@@ -24,7 +25,7 @@ const {
 
 export const auth = betterAuth({
   plugins: [nextCookies()],
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: BASE_URL,
   database: drizzleAdapter(pgDb, {
     provider: "pg",
     schema: {
