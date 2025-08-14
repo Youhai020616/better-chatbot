@@ -34,7 +34,6 @@
     "docker-compose:logs": "docker-compose -f docker/compose.yml logs -f",
     "docker-compose:ps": "docker-compose -f docker/compose.yml ps",
     "docker-compose:update": "git pull && docker-compose -f docker/compose.yml up -d --build",
-
     "docker:redis": "docker run --name better-chatbot-redis -p 6379:6379 -d redis:7-alpine",
     "docker:app": "docker build -f docker/Dockerfile -t better-chatbot . && docker run -p 3000:3000 -e NO_HTTPS=1 better-chatbot",
     "prepare": "husky",
@@ -71,6 +70,8 @@
     "@tiptap/react": "^2.26.1",
     "@tiptap/starter-kit": "^2.26.1",
     "@tiptap/suggestion": "^2.26.1",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "@xyflow/react": "^12.8.2",
     "ai": "^4.3.19",
     "bcrypt-ts": "^7.1.0",
