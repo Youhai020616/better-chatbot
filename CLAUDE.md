@@ -2,166 +2,160 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
-
-Better-chatbot is a Next.js 15 application built with TypeScript that implements a modern AI chatbot with support for the Model Context Protocol (MCP), multi-provider AI models, and visual workflow creation. The app uses PostgreSQL for data persistence, supports multiple AI providers, and includes a comprehensive tool system for enhanced conversational capabilities.
-
 ## Development Commands
 
 ### Core Development
-- `pnpm dev` - Start development server with Turbopack
-- `pnpm dev:https` - Start development server with experimental HTTPS
-- `pnpm build` - Production build
-- `pnpm build:local` - Local build without HTTPS requirements
-- `pnpm start` - Start production server
+```bash
+pnpm dev                    # Start development server with Turbopack
+pnpm dev:https             # Start with HTTPS (for OAuth testing)
+pnpm build                 # Production build
+pnpm build:local           # Local build without HTTPS
+pnpm start                 # Start production server
+```
 
 ### Code Quality
-- `pnpm lint` - Run ESLint and Biome linter with auto-fix
-- `pnpm lint:fix` - Fix linting issues
-- `pnpm format` - Format code with Biome
-- `pnpm check-types` - TypeScript type checking
-- `pnpm check` - Run all checks (lint, types, tests)
-
-### Testing
-- `pnpm test` - Run tests with Vitest
-- `pnpm test:watch` - Run tests in watch mode
-- Test files use `.test.ts` suffix and are co-located with source files
+```bash
+pnpm lint                  # Run Next.js and Biome linting
+pnpm lint:fix              # Auto-fix linting issues
+pnpm format                # Format code with Biome
+pnpm check-types           # TypeScript type checking
+pnpm test                  # Run Vitest tests
+pnpm test:watch            # Run tests in watch mode
+pnpm check                 # Run all quality checks (lint, types, tests)
+```
 
 ### Database Operations
-- `pnpm db:generate` - Generate Drizzle migrations
-- `pnpm db:push` - Push schema changes to database
-- `pnpm db:reset` - Drop and recreate database
-- `pnpm db:migrate` - Run database migrations
-- `pnpm db:studio` - Open Drizzle Studio
+```bash
+pnpm db:generate           # Generate Drizzle migrations
+pnpm db:push               # Push schema changes to database
+pnpm db:migrate            # Run database migrations
+pnpm db:studio             # Open Drizzle Studio
+pnpm db:reset              # Drop and recreate database
+```
 
-### Docker Operations
-- `pnpm docker-compose:up` - Start all services with Docker Compose
-- `pnpm docker-compose:down` - Stop Docker services
-- `pnpm docker:redis` - Start Redis container
-- `pnpm docker:app` - Build and run app container
+### Setup & Initialization
+```bash
+pnpm initial:env                    # Generate initial .env file
+pnpm openai-compatiable:init        # Initialize OpenAI-compatible providers
+pnpm openai-compatiable:parse       # Parse OpenAI-compatible configurations
+```
+
+### Docker Development
+```bash
+pnpm docker-compose:up             # Start all services with Docker Compose
+pnpm docker-compose:down           # Stop all services
+pnpm docker-compose:logs           # View logs
+pnpm docker:redis                  # Start Redis container only
+```
 
 ## Architecture Overview
 
-### App Router Structure
-The application uses Next.js 15 App Router with a clear separation between authenticated and unauthenticated routes:
+### Core Technologies
+- **Framework**: Next.js 15 with App Router and Turbopack
+- **Database**: PostgreSQL with Drizzle ORM
+- **Authentication**: Better Auth with OAuth providers (GitHub, Google, Microsoft)
+- **AI Integration**: AI SDK with multiple providers (OpenAI, Anthropic, Google, xAI, OpenRouter)
+- **MCP Integration**: Model Context Protocol for tool calling and server management
+- **UI**: React 19, Tailwind CSS 4, Radix UI components
+- **Testing**: Vitest for unit testing
+- **Code Quality**: Biome for linting and formatting
 
-- `src/app/(auth)/` - Authentication pages (sign-in, sign-up)
-- `src/app/(chat)/` - Main application routes (chat, agents, workflows, MCP management)
-- `src/app/api/` - API routes for all backend functionality
+### Key Architectural Patterns
 
-### Core Systems
+#### Multi-Provider AI System
+The application supports multiple AI providers through a unified interface:
+- Static models: Direct provider SDKs (OpenAI, Anthropic, Google, xAI, Ollama)
+- OpenRouter: Access to 300+ models through unified API
+- OpenAI-compatible providers: Custom provider support
+- Tool calling support with automatic unsupported model detection
 
-#### AI Model Integration (`src/lib/ai/models.ts`)
-- Multi-provider support: OpenAI, Anthropic, Google, xAI, OpenRouter, Ollama
-- Dynamic model configuration with tool support detection
-- OpenAI-compatible provider integration via configuration
+#### MCP (Model Context Protocol) Integration
+Comprehensive MCP server management for extending AI capabilities:
+- Dynamic server configuration and OAuth flows
+- Tool customization and schema validation
+- Multi-server orchestration and client management
+- File-based and database-backed configuration storage
 
-#### MCP (Model Context Protocol) System (`src/lib/ai/mcp/`)
-- Dynamic MCP server management with database or file-based configuration
-- OAuth flow support for MCP server authentication
-- Tool customization per user and server
-- Real-time MCP client management with connection pooling
+#### Workflow System
+Visual workflow builder for complex AI tasks:
+- Node-based workflow editor using ReactFlow
+- Multiple node types: Input, LLM, Tool, HTTP, Condition, Template, Output
+- Dependency graph execution with cycle detection
+- JSON Schema validation for node configurations
 
-#### Database Layer (`src/lib/db/pg/`)
-- Drizzle ORM with PostgreSQL
-- Repository pattern for data access
-- Comprehensive schema for chat threads, messages, agents, workflows, and MCP configurations
-- Migration system for schema evolution
-
-#### Workflow System (`src/lib/ai/workflow/`)
-- Visual workflow builder with node-based editor
-- Workflow execution engine with dependency resolution
-- LLM, Tool, HTTP, Template, Input, Output, and Condition node types
-- Workflow publishing and sharing system
-
-### Key Components Architecture
-
-#### Chat System
-- Real-time chat with streaming responses
-- Tool invocation and result display
-- Message threading and persistence
+#### Chat System Architecture
+- Thread-based conversations with message persistence
+- Agent system with custom instructions and tool configurations
+- Real-time streaming responses
+- Archive system for conversation management
 - Voice chat integration with OpenAI Realtime API
 
-#### Agent System
-- Custom AI agents with specific instructions and tool access
-- Agent sharing with visibility controls (public/private/readonly)
-- Icon customization and description management
+### Database Schema Structure
+- **Users**: Authentication and preferences
+- **Chat Threads & Messages**: Conversation storage with JSON message parts
+- **Agents**: Custom AI assistants with tool configurations
+- **MCP Servers**: Server configurations and OAuth credentials
+- **Workflows**: Visual workflow definitions with nodes and edges
+- **Archives**: Conversation archival system
 
-#### Tool Integration
-- Built-in tools: web search, JavaScript execution, data visualization
-- MCP tool integration with mention system (@tool syntax)
-- Tool customization with per-user instructions
-- Tool mode selection (auto/manual/none)
+### Authentication Flow
+Uses Better Auth with support for:
+- Email/password authentication with secure password hashing
+- OAuth providers (GitHub, Google, Microsoft) with configurable prompts
+- Session management with secure token handling
+- Configurable sign-up and social auth enablement
 
-## Import Path Conventions
+### API Structure
+RESTful API endpoints organized by feature:
+- `/api/chat/*` - Chat operations and streaming
+- `/api/agent/*` - Agent management
+- `/api/mcp/*` - MCP server operations and OAuth
+- `/api/workflow/*` - Workflow execution and management
+- `/api/auth/*` - Authentication operations
 
-The project uses custom TypeScript path mapping:
-- `ui/*` → `./src/components/ui/*` (UI components)
-- `auth/*` → `./src/lib/auth/*` (Authentication utilities)
-- `app-types/*` → `./src/types/*` (Type definitions)
-- `lib/*` → `./src/lib/*` (Library functions)
-- `@/*` → `./src/*` (General source files)
+### Frontend Organization
+- **Components**: Reusable UI components with Radix UI integration
+- **Hooks**: Custom React hooks for data fetching and state management
+- **Layouts**: App shell with sidebar navigation and responsive design
+- **Pages**: Route-based page components following App Router conventions
 
-## Environment Setup
+## Important Implementation Notes
 
-Key environment variables (`.env` file is auto-generated on `pnpm i`):
-- **LLM Providers**: `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_GENERATIVE_AI_API_KEY`, `OPENROUTER_API_KEY`, `XAI_API_KEY`
-- **Database**: `POSTGRES_URL` (Supabase recommended for development)
-- **Authentication**: `BETTER_AUTH_SECRET` (generate with: `npx @better-auth/cli@latest secret`)
-- **Tools**: `EXA_API_KEY` (for web search functionality)
-- **MCP Config**: `FILE_BASED_MCP_CONFIG=false` (use database-based MCP config by default)
+### Environment Configuration
+The application requires multiple environment variables for full functionality:
+- Database connection (PostgreSQL)
+- AI provider API keys (OpenAI, Anthropic, Google, etc.)
+- OAuth credentials for social authentication
+- Optional Redis for caching
+- MCP server configurations
 
-## Testing Strategy
+### OpenAI-Compatible Providers
+The system supports custom OpenAI-compatible providers through environment variable configuration. Use the initialization scripts to set up new providers.
 
-- Vitest for unit testing with TypeScript path support
-- Test files use `.test.ts` suffix
-- Key areas with test coverage: AI utilities, workflow system, MCP configuration
+### MCP Server Management
+MCP servers can be configured through the UI with OAuth flows for authentication. Server configurations support both file-based and database storage patterns.
 
-## Code Quality Standards
+### Tool System
+The application includes a comprehensive tool system:
+- Built-in tools: Code execution, web search, data visualization
+- MCP tools: Dynamically loaded from configured servers
+- Tool customization: Schema modification and parameter overrides
 
-- Biome for formatting and linting (with ESLint)
-- Strict TypeScript configuration with custom path mapping
-- Pre-commit hooks with lint-staged for automated formatting
-- Type safety with Zod schemas for runtime validation
+### Testing Strategy
+- Unit tests with Vitest for utility functions and business logic
+- Component testing for React components
+- Integration testing for API endpoints
+- Manual testing workflows for complex AI interactions
 
-## MCP Development Notes
+### Internationalization
+Built-in support for multiple languages using next-intl:
+- Message files in `/messages/` directory
+- Supported languages: English, Spanish, French, Japanese, Korean, Chinese
+- Locale-based routing and content adaptation
 
-When working with MCP servers:
-1. Server configurations are stored in database (McpServerSchema)
-2. OAuth flows are supported for server authentication
-3. Tool customizations are per-user (McpToolCustomizationSchema)
-4. Server and tool customizations allow additional prompts/instructions
-
-## Workflow Development Notes
-
-When working with workflows:
-1. Workflows are versioned with semantic versioning
-2. Nodes and edges are stored separately with foreign key relationships
-3. Workflow execution uses a graph-based dependency resolver
-4. UI configuration is stored separately from business logic configuration
-
-## Archive System
-
-The project includes an archive system for content organization:
-- Users can create named archive collections with descriptions
-- Chat conversations and other content can be saved to archives
-- Each archive item is tracked with timestamps for organization
-- Archives are user-specific with cascade deletion support
-
-## Key Architecture Patterns
-
-### Repository Pattern
-- All data access is abstracted through repository interfaces
-- PostgreSQL implementation using Drizzle ORM
-- Type-safe database operations with schema inference
-
-### Tool System Architecture
-- Built-in tools (web search, JS execution, data visualization)
-- MCP tool integration with @mention syntax
-- Per-user tool customization support
-- Tool mode selection (auto/manual/none)
-
-### Real-time Features
-- Streaming chat responses with AI SDK
-- Voice chat using OpenAI Realtime API
-- Real-time tool invocation and result display
+### Performance Considerations
+- Turbopack for fast development builds
+- Streaming responses for AI chat interactions
+- Efficient database queries with Drizzle ORM
+- Component-level code splitting
+- Image optimization with Next.js built-in features
