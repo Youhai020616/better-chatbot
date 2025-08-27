@@ -22,7 +22,13 @@ import useSWR, { mutate } from "swr";
 import { BackgroundPaths } from "ui/background-paths";
 import { Button } from "ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "ui/card";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -145,7 +151,10 @@ export default function WorkflowPage() {
             </Button>
           </DialogTrigger>
           <DialogContent className="md:max-w-3xl!">
-            <DialogTitle className="sr-only">workflow greeting</DialogTitle>
+            <DialogTitle className="sr-only">{t("Workflow.title")}</DialogTitle>
+            <DialogDescription className="sr-only">
+              {t("Workflow.description")}
+            </DialogDescription>
             <WorkflowGreeting />
           </DialogContent>
         </Dialog>

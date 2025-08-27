@@ -13,7 +13,13 @@ import { mutate } from "swr";
 import { BackgroundPaths } from "ui/background-paths";
 import { Button } from "ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "ui/card";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "ui/dialog";
 import { Skeleton } from "ui/skeleton";
 
 export default function ArchivePage() {
@@ -63,7 +69,10 @@ export default function ArchivePage() {
             </Button>
           </DialogTrigger>
           <DialogContent className="md:max-w-3xl!">
-            <DialogTitle className="sr-only">archive information</DialogTitle>
+            <DialogTitle className="sr-only">{t("Archive.title")}</DialogTitle>
+            <DialogDescription className="sr-only">
+              {t("Archive.description")}
+            </DialogDescription>
             <div className="p-6">
               <h2 className="text-2xl font-bold mb-4">{t("Archive.title")}</h2>
               <p className="text-muted-foreground mb-4">
