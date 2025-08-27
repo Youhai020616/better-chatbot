@@ -57,7 +57,7 @@ const VISIBILITY_CONFIG = {
 } as const;
 
 interface ShareableActionsProps {
-  type: "agent" | "workflow";
+  type: "agent" | "workflow" | "archive";
   visibility?: Visibility;
   isOwner: boolean;
   isBookmarked?: boolean;
@@ -84,17 +84,18 @@ export function ShareableActions({
 
   const VisibilityIcon = visibility ? VISIBILITY_ICONS[visibility] : null;
 
-  const visibilityItems = Object.entries(VISIBILITY_CONFIG[type]).map(
-    ([value, config]) => {
-      const IconComponent =
-        VISIBILITY_ICONS[value as keyof typeof VISIBILITY_ICONS];
-      return {
-        icon: <IconComponent className="size-4" />,
-        value: value as Visibility,
-        ...config,
-      };
-    },
-  );
+  const visibilityItems =
+    type !== "archive" && VISIBILITY_CONFIG[type]
+      ? Object.entries(VISIBILITY_CONFIG[type]).map(([value, config]) => {
+          const IconComponent =
+            VISIBILITY_ICONS[value as keyof typeof VISIBILITY_ICONS];
+          return {
+            icon: <IconComponent className="size-4" />,
+            value: value as Visibility,
+            ...config,
+          };
+        })
+      : [];
 
   return (
     <div className="flex items-center gap-1">
@@ -149,7 +150,9 @@ export function ShareableActions({
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                {t(VISIBILITY_CONFIG[type][visibility!].label)}
+                {type !== "archive" && VISIBILITY_CONFIG[type] && visibility
+                  ? t(VISIBILITY_CONFIG[type][visibility].label)
+                  : "Visibility"}
               </TooltipContent>
             </Tooltip>
           )}

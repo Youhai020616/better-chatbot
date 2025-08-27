@@ -1,9 +1,11 @@
 "use client";
 
 import { AgentSummary } from "app-types/agent";
+import { ArchiveWithItemCount } from "app-types/archive";
 import { WorkflowSummary } from "app-types/workflow";
 import { format } from "date-fns";
 import { cn } from "lib/utils";
+import { FolderIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "ui/avatar";
@@ -24,8 +26,8 @@ export interface ShareableIcon {
   };
 }
 interface ShareableCardProps {
-  type: "agent" | "workflow";
-  item: AgentSummary | WorkflowSummary;
+  type: "agent" | "workflow" | "archive";
+  item: AgentSummary | WorkflowSummary | ArchiveWithItemCount;
   isOwner?: boolean;
   href: string;
   onBookmarkToggle?: (itemId: string, isBookmarked: boolean) => void;
@@ -45,6 +47,7 @@ export function ShareableCard({
   const t = useTranslations();
   const isPublished = (item as WorkflowSummary).isPublished;
   const isBookmarked = (item as AgentSummary).isBookmarked;
+  const itemCount = (item as ArchiveWithItemCount).itemCount;
 
   return (
     <Link href={href} title={item.name}>
@@ -56,13 +59,22 @@ export function ShareableCard({
         <CardHeader className="shrink gap-y-0">
           <CardTitle className="flex gap-3 items-stretch min-w-0">
             <div
-              style={{ backgroundColor: item.icon?.style?.backgroundColor }}
+              style={{
+                backgroundColor:
+                  type === "archive"
+                    ? "oklch(78.5% 0.115 274.713)"
+                    : item.icon?.style?.backgroundColor,
+              }}
               className="p-2 rounded-lg flex items-center justify-center ring ring-background border shrink-0"
             >
-              <Avatar className="size-6">
-                <AvatarImage src={item.icon?.value} />
-                <AvatarFallback />
-              </Avatar>
+              {type === "archive" ? (
+                <FolderIcon className="size-6 text-white" />
+              ) : (
+                <Avatar className="size-6">
+                  <AvatarImage src={item.icon?.value} />
+                  <AvatarFallback />
+                </Avatar>
+              )}
             </div>
 
             <div className="flex flex-col justify-around min-w-0 flex-1 overflow-hidden">
@@ -74,6 +86,12 @@ export function ShareableCard({
                 {type === "workflow" && !isPublished && (
                   <span className="px-2 rounded-sm bg-secondary text-foreground shrink-0">
                     {t("Workflow.draft")}
+                  </span>
+                )}
+                {type === "archive" && (
+                  <span className="px-2 rounded-sm bg-secondary text-foreground shrink-0">
+                    {itemCount}{" "}
+                    {itemCount === 1 ? t("Archive.item") : t("Archive.items")}
                   </span>
                 )}
               </div>
@@ -92,12 +110,12 @@ export function ShareableCard({
             <div onClick={(e) => e.stopPropagation()}>
               <ShareableActions
                 type={type}
-                visibility={item.visibility}
+                visibility={type === "archive" ? undefined : item.visibility}
                 isOwner={isOwner}
                 isBookmarked={isBookmarked}
                 editHref={href}
                 onVisibilityChange={
-                  onVisibilityChange
+                  onVisibilityChange && type !== "archive"
                     ? (visibility) => onVisibilityChange(item.id, visibility)
                     : undefined
                 }

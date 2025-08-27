@@ -361,7 +361,20 @@
     "addToArchive": "Add to Archive",
     "removeFromArchive": "Remove from Archive",
     "itemAddedToArchive": "Item added to archive",
-    "itemRemovedFromArchive": "Item removed from archive"
+    "itemRemovedFromArchive": "Item removed from archive",
+    "whatIsArchive": "What is Archive?",
+    "description": "Archives help you organize and store your chat conversations for easy access later.",
+    "feature1": "Organize chat threads by topic or project",
+    "feature2": "Keep important conversations easily accessible",
+    "feature3": "Maintain a clean and organized chat history",
+    "createArchive": "Create Archive",
+    "createArchiveDescription": "Start organizing your conversations with a new archive",
+    "myArchives": "My Archives",
+    "noArchivesDescription": "Create your first archive to start organizing your chat conversations",
+    "item": "item",
+    "items": "items",
+    "deleted": "Archive deleted",
+    "deleteConfirm": "Are you sure you want to delete this archive? This action cannot be undone."
   },
   "Agent": {
     "title": "Agent",
