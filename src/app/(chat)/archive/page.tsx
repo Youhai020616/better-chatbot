@@ -7,7 +7,6 @@ import { authClient } from "auth/client";
 import { notify } from "lib/notify";
 import { ArrowUpRight, FolderPlus, HelpCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
@@ -19,7 +18,6 @@ import { Skeleton } from "ui/skeleton";
 
 export default function ArchivePage() {
   const t = useTranslations();
-  const _router = useRouter();
   const { data: session } = authClient.useSession();
   const currentUserId = session?.user?.id;
   const [createArchiveDialogOpen, setCreateArchiveDialogOpen] = useState(false);

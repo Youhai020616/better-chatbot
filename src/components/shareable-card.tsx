@@ -63,7 +63,8 @@ export function ShareableCard({
                 backgroundColor:
                   type === "archive"
                     ? "oklch(78.5% 0.115 274.713)"
-                    : item.icon?.style?.backgroundColor,
+                    : (item as AgentSummary | WorkflowSummary).icon?.style
+                        ?.backgroundColor,
               }}
               className="p-2 rounded-lg flex items-center justify-center ring ring-background border shrink-0"
             >
@@ -71,7 +72,9 @@ export function ShareableCard({
                 <FolderIcon className="size-6 text-white" />
               ) : (
                 <Avatar className="size-6">
-                  <AvatarImage src={item.icon?.value} />
+                  <AvatarImage
+                    src={(item as AgentSummary | WorkflowSummary).icon?.value}
+                  />
                   <AvatarFallback />
                 </Avatar>
               )}
@@ -110,7 +113,11 @@ export function ShareableCard({
             <div onClick={(e) => e.stopPropagation()}>
               <ShareableActions
                 type={type}
-                visibility={type === "archive" ? undefined : item.visibility}
+                visibility={
+                  type === "archive"
+                    ? undefined
+                    : (item as AgentSummary | WorkflowSummary).visibility
+                }
                 isOwner={isOwner}
                 isBookmarked={isBookmarked}
                 editHref={href}
@@ -128,19 +135,25 @@ export function ShareableCard({
               />
             </div>
 
-            {!isOwner && item.userName && (
-              <div className="flex items-center gap-1.5 min-w-0">
-                <Avatar className="size-4 ring shrink-0 rounded-full">
-                  <AvatarImage src={item.userAvatar} />
-                  <AvatarFallback>
-                    {item.userName[0]?.toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <span className="text-xs text-muted-foreground font-medium truncate min-w-0">
-                  {item.userName}
-                </span>
-              </div>
-            )}
+            {!isOwner &&
+              type !== "archive" &&
+              (item as AgentSummary | WorkflowSummary).userName && (
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <Avatar className="size-4 ring shrink-0 rounded-full">
+                    <AvatarImage
+                      src={(item as AgentSummary | WorkflowSummary).userAvatar}
+                    />
+                    <AvatarFallback>
+                      {(
+                        item as AgentSummary | WorkflowSummary
+                      ).userName?.[0]?.toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs text-muted-foreground font-medium truncate min-w-0">
+                    {(item as AgentSummary | WorkflowSummary).userName}
+                  </span>
+                </div>
+              )}
           </div>
         </CardFooter>
       </Card>
