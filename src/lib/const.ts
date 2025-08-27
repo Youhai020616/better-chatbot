@@ -17,7 +17,10 @@ export const COOKIE_KEY_SIDEBAR_STATE = "sidebar:state";
 export const COOKIE_KEY_LOCALE = "i18n:locale";
 
 export const BASE_URL = (() => {
-  if (process.env.BETTER_AUTH_URL) return process.env.BETTER_AUTH_URL;
+  // In production/Vercel, use BETTER_AUTH_URL if explicitly set
+  if (process.env.BETTER_AUTH_URL && process.env.BETTER_AUTH_URL.trim()) {
+    return process.env.BETTER_AUTH_URL;
+  }
 
   if (IS_VERCEL_ENV) {
     const vercelDomain =
