@@ -4,7 +4,6 @@ import { ArchiveDialog } from "@/components/archive-dialog";
 import { ShareableCard } from "@/components/shareable-card";
 import { useArchives } from "@/hooks/queries/use-archives";
 import { authClient } from "auth/client";
-import { ArchiveWithItemCount } from "app-types/archive";
 import { notify } from "lib/notify";
 import { ArrowUpRight, FolderPlus, HelpCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
